@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - KeepText.vim autoload script
 "
-" Copyright: (C) 2013 Ingo Karkat
+" Copyright: (C) 2013-2016 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -27,16 +27,16 @@ set cpo&vim
 
 " This mapping repeats naturally, because it just sets global things, and Vim is
 " able to repeat the g@ on its own.
-nnoremap <expr> <Plug>KeepTextLineOperator KeepText#OperatorExpression('KeepText#LineOperator')
-nnoremap <expr> <Plug>KeepTextBufferOperator KeepText#OperatorExpression('KeepText#BufferOperator')
+nnoremap <expr> <Plug>(KeepTextLineOperator) KeepText#OperatorExpression('KeepText#LineOperator')
+nnoremap <expr> <Plug>(KeepTextBufferOperator) KeepText#OperatorExpression('KeepText#BufferOperator')
 
 " Repeat not defined in visual mode, but enabled through visualrepeat.vim.
-vnoremap <silent> <Plug>KeepTextLineVisual
+vnoremap <silent> <Plug>(KeepTextLineVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
-\call KeepText#LineOperator('visual', "\<lt>Plug>KeepTextLineVisual")<CR>
-vnoremap <silent> <Plug>KeepTextBufferVisual
+\call KeepText#LineOperator('visual', 1)<CR>
+vnoremap <silent> <Plug>(KeepTextBufferVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
-\call KeepText#BufferOperator('visual', "\<lt>Plug>KeepTextBufferVisual")<CR>
+\call KeepText#BufferOperator('visual', 1)<CR>
 
 " A normal-mode repeat of the visual mapping is triggered by repeat.vim. It
 " establishes a new selection at the cursor position, of the same mode and size
@@ -45,27 +45,27 @@ vnoremap <silent> <Plug>KeepTextBufferVisual
 "   multiplied accordingly. This has the side effect that a repeat with [count]
 "   will persist the expanded size, which is different from what the normal-mode
 "   repeat does (it keeps the scope of the original command).
-nnoremap <silent> <Plug>KeepTextLineVisual
+nnoremap <silent> <Plug>(KeepTextLineVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
-\call KeepText#LineOperator('visual', "\<lt>Plug>KeepTextLineVisual")<CR>
-nnoremap <silent> <Plug>KeepTextBufferVisual
+\call KeepText#LineOperator('visual', 1)<CR>
+nnoremap <silent> <Plug>(KeepTextBufferVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
-\call KeepText#BufferOperator('visual', "\<lt>Plug>KeepTextBufferVisual")<CR>
+\call KeepText#BufferOperator('visual', 1)<CR>
 
 
-if ! hasmapto('<Plug>KeepTextLineOperator', 'n')
-    nmap <Leader>k <Plug>KeepTextLineOperator
+if ! hasmapto('<Plug>(KeepTextLineOperator)', 'n')
+    nmap <Leader>k <Plug>(KeepTextLineOperator)
 endif
-if ! hasmapto('<Plug>KeepTextLineVisual', 'x')
-    xmap <Leader>k <Plug>KeepTextLineVisual
+if ! hasmapto('<Plug>(KeepTextLineVisual)', 'x')
+    xmap <Leader>k <Plug>(KeepTextLineVisual)
 endif
-if ! hasmapto('<Plug>KeepTextBufferOperator', 'n')
-    nmap <Leader>K <Plug>KeepTextBufferOperator
+if ! hasmapto('<Plug>(KeepTextBufferOperator)', 'n')
+    nmap <Leader>K <Plug>(KeepTextBufferOperator)
 endif
-if ! hasmapto('<Plug>KeepTextBufferVisual', 'x')
-    xmap <Leader>K <Plug>KeepTextBufferVisual
+if ! hasmapto('<Plug>(KeepTextBufferVisual)', 'x')
+    xmap <Leader>K <Plug>(KeepTextBufferVisual)
 endif
 
 let &cpo = s:save_cpo
