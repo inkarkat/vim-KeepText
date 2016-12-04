@@ -1,0 +1,23 @@
+[default text]
+bar, baz, 
+<foo> <bar> notyetimplemented </bar> </foo>
+one line
+This 'two line' is new.
+
+    space-indented line
+	tab-indented line
+	    softtabstop-indented line
+
+#   space-indented line
+#	tab-indented line
+#	    softtabstop-indented line
+
+
+	    //  space-indented line
+	    //	tab-indented line
+	    //	    softtabstop-indented line
+
+Quisque
+porttitor nisi ac elit. 
+
+EOF
