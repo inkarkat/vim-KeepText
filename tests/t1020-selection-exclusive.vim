@@ -1,4 +1,4 @@
-" Test keeping inclusive selections at various locations in a line.
+" Test keeping exclusive selections at various locations in a line.
 
 edit input.txt
 set selection=exclusive
