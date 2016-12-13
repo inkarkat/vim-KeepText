@@ -1,0 +1,4 @@
+autoload/KeepText.vim
+autoload/KeepText/InSelection.vim
+plugin/KeepText.vim
+doc/KeepText.txt
