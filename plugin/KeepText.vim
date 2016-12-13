@@ -62,10 +62,10 @@ if ! hasmapto('<Plug>(KeepTextLineVisual)', 'x')
     xmap <Leader>k <Plug>(KeepTextLineVisual)
 endif
 if ! hasmapto('<Plug>(KeepTextBufferOperator)', 'n')
-    nmap <Leader>K <Plug>(KeepTextBufferOperator)
+    nmap g<Leader>k <Plug>(KeepTextBufferOperator)
 endif
 if ! hasmapto('<Plug>(KeepTextBufferVisual)', 'x')
-    xmap <Leader>K <Plug>(KeepTextBufferVisual)
+    xmap g<Leader>k <Plug>(KeepTextBufferVisual)
 endif
 
 let &cpo = s:save_cpo
