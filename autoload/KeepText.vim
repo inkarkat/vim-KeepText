@@ -1,6 +1,7 @@
 " KeepText.vim: Keep only {motion} text in lines or the buffer.
 "
 " DEPENDENCIES:
+"   - ingo/comments.vim autoload script
 "   - ingo/lines.vim autoload script
 "   - ingo/register.vim autoload script
 "   - repeat.vim (vimscript #2136) autoload script (optional)
@@ -13,6 +14,10 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	003	13-Dec-2016	ENH: Keep indent [+ comment prefix] in text.
+"				For blockwise selections, apply the indent to
+"				every line.
+"	002	02-Dec-2016	Complete implementation.
 "	001	18-Apr-2013	file creation
 let s:save_cpo = &cpo
 set cpo&vim
@@ -25,10 +30,14 @@ endfunction
 
 function! KeepText#KeepText( type, startLnum, endLnum )
     let l:lastLnum = line('$')
+    let l:indent = ingo#comments#SplitIndentAndText(getline(a:startLnum))[0]
 
     if a:type ==# 'visual'
+	let l:isBlockWise = (visualmode() ==# "\<C-v>")
 	execute 'normal! gvd'
     else
+	let l:isBlockWise = (a:type ==# 'block')
+
 	" Note: Need to use an "inclusive" selection to make `] include the
 	" last moved-over character.
 	let l:save_selection = &selection
@@ -41,10 +50,18 @@ function! KeepText#KeepText( type, startLnum, endLnum )
     endif
     let l:keptLineOffset = line('$') - l:lastLnum
 
+    if l:isBlockWise
+	" Insert the indent before _every_ line.
+	let l:keptText = substitute(@", '^\|\n\zs', escape(l:indent, '\&'), 'g')
+    else
+	let l:keptText = l:indent . @"
+    endif
+
     " Replace the range with the text to be kept. Store the replaced lines
     " (which don't contain the text to be kept any longer, it was deleted) again
     " in the default register, and return that.
-    call ingo#lines#Replace(a:startLnum, a:endLnum + l:keptLineOffset, @", '"')
+    call ingo#lines#Replace(a:startLnum, a:endLnum + l:keptLineOffset, l:keptText, '"')
+
     return @"
 endfunction
 
