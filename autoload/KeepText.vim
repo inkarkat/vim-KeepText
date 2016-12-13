@@ -14,6 +14,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	004	14-Dec-2016	Handle selection overlapping with indent: Do not
+"				add indent then.
 "	003	13-Dec-2016	ENH: Keep indent [+ comment prefix] in text.
 "				For blockwise selections, apply the indent to
 "				every line.
@@ -34,9 +36,12 @@ function! KeepText#KeepText( type, startLnum, endLnum )
 
     if a:type ==# 'visual'
 	let l:isBlockWise = (visualmode() ==# "\<C-v>")
+	let l:startCol = col("'<")
+
 	execute 'normal! gvd'
     else
 	let l:isBlockWise = (a:type ==# 'block')
+	let l:startCol = col("'[")
 
 	" Note: Need to use an "inclusive" selection to make `] include the
 	" last moved-over character.
@@ -50,7 +55,10 @@ function! KeepText#KeepText( type, startLnum, endLnum )
     endif
     let l:keptLineOffset = line('$') - l:lastLnum
 
-    if l:isBlockWise
+    if l:startCol <= len(l:indent)
+	let l:indent = ''
+    endif
+    if l:isBlockWise && ! empty(l:indent)
 	" Insert the indent before _every_ line.
 	let l:keptText = substitute(@", '^\|\n\zs', escape(l:indent, '\&'), 'g')
     else
