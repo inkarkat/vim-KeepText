@@ -31,16 +31,22 @@ RELATED WORKS								     *
 USAGE							      *KeepText-usage*
 						     *<Leader>k* *v_<Leader>k*
 ["x]<Leader>k{motion}	Delete any text in the line(s) covered by {motion}
-			except for the text that {motion} moves over itself.
-			Register x contains the deleted text.
+			except for the text that {motion} moves over itself,
+			and any indent (including a potential comment prefix).
+			Register x contains the deleted text (and the indent,
+			too).
 {Visual}["x]<Leader>k	Delete any text in the selected line(s) except the
-			selected text itself.
-						     *<Leader>K* *v_<Leader>K*
-["x]<Leader>K{motion}	Delete any text in the entire buffer except for the
+			selected text itself, and any indent / comment prefix.
+						   *g<Leader>k* *v_g<Leader>k*
+["x]g<Leader>k{motion}	Delete any text in the entire buffer except for the
 			text that {motion} moves over itself.
 			Register x contains the deleted text.
-{Visual}["x]<Leader>K	Delete any text in the entire buffer except the
+{Visual}["x]g<Leader>k	Delete any text in the entire buffer except the
 			selected text itself.
+								  *<Leader>zk*
+["x]<Leader>zk{motion}	Delete any text in the last selection except for the
+			text that {motion} moves over itself.
+			Register x contains the deleted text.
 
 EXAMPLE							    *KeepText-example*
 
