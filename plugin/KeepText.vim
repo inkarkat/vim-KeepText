@@ -9,6 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.003	14-Dec-2016	Add <Leader>zk mapping.
 "   	002	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
 "				for normal mode repeat of a visual mapping.
 "				When supplying a [count] on such repeat of a
@@ -27,8 +28,9 @@ set cpo&vim
 
 " This mapping repeats naturally, because it just sets global things, and Vim is
 " able to repeat the g@ on its own.
-nnoremap <expr> <Plug>(KeepTextLineOperator) KeepText#OperatorExpression('KeepText#LineOperator')
-nnoremap <expr> <Plug>(KeepTextBufferOperator) KeepText#OperatorExpression('KeepText#BufferOperator')
+nnoremap <expr> <Plug>(KeepTextLineOperator)      KeepText#OperatorExpression('KeepText#LineOperator')
+nnoremap <expr> <Plug>(KeepTextBufferOperator)    KeepText#OperatorExpression('KeepText#BufferOperator')
+nnoremap <expr> <Plug>(KeepTextSelectionOperator) KeepText#OperatorExpression('KeepText#SelectionOperator')
 
 " Repeat not defined in visual mode, but enabled through visualrepeat.vim.
 vnoremap <silent> <Plug>(KeepTextLineVisual)
@@ -66,6 +68,9 @@ if ! hasmapto('<Plug>(KeepTextBufferOperator)', 'n')
 endif
 if ! hasmapto('<Plug>(KeepTextBufferVisual)', 'x')
     xmap g<Leader>k <Plug>(KeepTextBufferVisual)
+endif
+if ! hasmapto('<Plug>(KeepTextSelectionOperator)', 'n')
+    nmap <Leader>zk <Plug>(KeepTextSelectionOperator)
 endif
 
 let &cpo = s:save_cpo
