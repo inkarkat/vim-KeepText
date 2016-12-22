@@ -45,7 +45,8 @@ USAGE							      *KeepText-usage*
 			selected text itself.
 								  *<Leader>zk*
 ["x]<Leader>zk{motion}	Delete any text in the last selection except for the
-			text that {motion} moves over itself.
+			text that {motion} moves over itself. {motion} must be
+			(at least partially) inside the selection.
 			Register x contains the deleted text.
 
 EXAMPLE							    *KeepText-example*
@@ -81,6 +82,7 @@ If you want to use different mappings, map your keys to the
     xmap <Leader>k <Plug>(KeepTextLineVisual)
     nmap <Leader>K <Plug>(KeepTextBufferOperator)
     xmap <Leader>K <Plug>(KeepTextBufferVisual)
+    nmap <Leader>z <Plug>(KeepTextSelectionOperator)
 <
 ==============================================================================
 LIMITATIONS						*KeepText-limitations*
