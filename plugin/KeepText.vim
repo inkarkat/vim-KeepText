@@ -26,6 +26,13 @@ let g:loaded_KeepText = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+"- commands --------------------------------------------------------------------
+
+command! -bar -bang -range=% -nargs=+ KeepText call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
+
+
+"- mappings --------------------------------------------------------------------
+
 " This mapping repeats naturally, because it just sets global things, and Vim is
 " able to repeat the g@ on its own.
 nnoremap <expr> <Plug>(KeepTextLineOperator)      KeepText#OperatorExpression('KeepText#LineOperator')
