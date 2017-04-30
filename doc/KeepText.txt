@@ -49,6 +49,15 @@ USAGE							      *KeepText-usage*
 			(at least partially) inside the selection.
 			Register x contains the deleted text.
 
+								   *:KeepText*
+:[range]KeepText [register] {range}
+			Delete any lines within [range] except those that are
+			covered by {range} into the unnamed register /
+			[register].
+:[range]KeepText! [register] {range}
+			Delete any lines within [range] that are covered by
+			{range} into the unnamed register / [register].
+
 EXAMPLE							    *KeepText-example*
 
 ==============================================================================
@@ -65,7 +74,7 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES					       *KeepText-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.028 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.029 or
   higher.
 - repeat.vim (vimscript #2136) plugin (optional)
 - visualrepeat.vim (vimscript #3848) plugin (optional)
