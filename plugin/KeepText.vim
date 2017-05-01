@@ -3,12 +3,13 @@
 " DEPENDENCIES:
 "   - KeepText.vim autoload script
 "
-" Copyright: (C) 2013-2016 Ingo Karkat
+" Copyright: (C) 2013-2017 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.004	01-May-2017	Rename :KeepText to :KeepRange.
 "   1.00.003	14-Dec-2016	Add <Leader>zk mapping.
 "   	002	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
 "				for normal mode repeat of a visual mapping.
@@ -28,7 +29,7 @@ set cpo&vim
 
 "- commands --------------------------------------------------------------------
 
-command! -bar -bang -range=% -nargs=+ KeepText call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
+command! -bar -bang -range=% -nargs=+ KeepRange call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
 
 
 "- mappings --------------------------------------------------------------------
