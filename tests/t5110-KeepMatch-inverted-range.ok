@@ -1,0 +1,15 @@
+[default text]
+Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
+<foo> <bar> notyetimplemented </bar> </foo>
+This  is a comment.
+This  is new.
+
+    space-indented line
+
+#   space-indented line
+
+
+	    //  space-indented line
+
+
+
