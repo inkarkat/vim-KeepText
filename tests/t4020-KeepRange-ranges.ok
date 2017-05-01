@@ -1,0 +1,8 @@
+    space-indented line
+	tab-indented line
+	    softtabstop-indented line
+
+	    //  space-indented line
+	    //	tab-indented line
+	    //	    softtabstop-indented line
+
