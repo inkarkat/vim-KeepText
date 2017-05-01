@@ -1,0 +1,9 @@
+Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
+<foo> <bar> notyetimplemented </bar> </foo>
+This 'one line' is a comment.
+This 'two line' is new.
+	tab-indented line
+#	tab-indented line
+	    //	tab-indented line
+Erat volutpat. Donec non tortor. Vivamus posuere nisi mollis dolor. Quisque
+EOF
