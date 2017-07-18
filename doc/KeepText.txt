@@ -49,14 +49,27 @@ USAGE							      *KeepText-usage*
 			(at least partially) inside the selection.
 			Register x contains the deleted text.
 
-								   *:KeepText*
-:[range]KeepText [register] {range}
-			Delete any lines within [range] except those that are
-			covered by {range} into the unnamed register /
+								  *:KeepRange*
+:[range]KeepRange [register] {range}
+			Delete any lines of the buffer / within [range] except
+			those that are covered by {range} into the unnamed
+			register / [register].
+:[range]KeepRange! [register] {range}
+			Delete any lines of the buffer / within [range] that
+			are covered by {range} into the unnamed register /
 			[register].
-:[range]KeepText! [register] {range}
-			Delete any lines within [range] that are covered by
-			{range} into the unnamed register / [register].
+								  *:KeepMatch*
+:[range]KeepMatch [register] /{pattern}/[flags]
+			Within the current line / [range], delete any text
+			that does not match {pattern} into the unnamed
+			register / [register]. Only match(es) are kept.
+:[range]KeepMatch! [register] /{pattern}/[flags]
+			Within the current line / [range], delete any text
+			that matches {pattern} into the unnamed
+			register / [register]. Only text that does not match
+			is kept. This is like
+			    :[range]substitute/{pattern}//[flags]
+			but it stores the deleted text in a register.
 
 EXAMPLE							    *KeepText-example*
 
@@ -112,7 +125,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2013-2016 Ingo Karkat
+Copyright: (C) 2013-2017 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
