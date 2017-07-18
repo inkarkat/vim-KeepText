@@ -1,0 +1,23 @@
+[default text]
+foo, bar, baz, for, now, 
+XXX
+This 'one line' is a comment.
+This 'two line' is new.
+
+    space-indented line
+	tab-indented line
+	    softtabstop-indented line
+
+#   space-indented line
+#	tab-indented line
+#	    softtabstop-indented line
+
+
+	    //  space-indented line
+	    //	tab-indented line
+	    //	    softtabstop-indented line
+
+(xxxxx)(xxxxxx)(xxxx)(xxxxxx)(xxxxx)(xxxxxxx)(xxxxx)
+porttitor nisi ac elit. Nullam tincidunt ligula vitae nulla.
+
+EOF
