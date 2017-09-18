@@ -1,6 +1,9 @@
 [default text]
 Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
 <foo> <bar> notyetimplemented </bar> </foo>
+comment.
+This
+
 space-indented line
 	tab-indented line
 	    softtabstop-indented linespace-indented line
