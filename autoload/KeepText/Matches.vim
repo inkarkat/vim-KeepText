@@ -6,7 +6,7 @@
 "   - ingo/err.vim autoload script
 "   - ingo/lines.vim autoload script
 "   - ingo/range.vim autoload script
-"   - PatternsOnText.vim autoload script (when using /{string}/ replacement)
+"   - ingo/subst/replacement.vim autoload script
 "
 " Copyright: (C) 2017 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -15,8 +15,7 @@
 "
 " REVISION	DATE		REMARKS
 "   1.00.002	19-Jul-2017	ENH: Support :KeepMatch ... /{string}/...
-"				replacement that differs from the match. For
-"				that, the PatternsOnText.vim plugin is needed.
+"				replacement that differs from the match.
 "   1.00.001	02-May-2017	file creation
 let s:save_cpo = &cpo
 set cpo&vim
@@ -69,7 +68,7 @@ function! s:Add( matches, replacement )
     \   a:matches,
     \   (empty(a:replacement) ?
     \       submatch(0) :
-    \       PatternsOnText#DefaultReplacementOnPredicate(1, {'replacement': a:replacement})
+    \       ingo#subst#replacement#DefaultReplacementOnPredicate(1, {'replacement': a:replacement})
     \   )
     \)
     return ''
