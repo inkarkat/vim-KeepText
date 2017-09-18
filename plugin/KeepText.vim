@@ -9,6 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.005	02-May-2017	Add :KeepMatch command.
 "   1.00.004	01-May-2017	Rename :KeepText to :KeepRange.
 "   1.00.003	14-Dec-2016	Add <Leader>zk mapping.
 "   	002	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
@@ -30,6 +31,7 @@ set cpo&vim
 "- commands --------------------------------------------------------------------
 
 command! -bar -bang -range=% -nargs=+ KeepRange call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
+command!      -bang -range   -nargs=+ KeepMatch call setline(<line1>, getline(<line1>)) | if ! KeepText#Matches#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
 
 
 "- mappings --------------------------------------------------------------------
