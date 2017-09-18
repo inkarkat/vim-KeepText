@@ -14,6 +14,10 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.003	19-Sep-2017	FIX: Don't let l:endLnum become smaller than
+"				l:startLnum; this can happen when the {pattern}
+"				captures multiple line(s) beyond the last line
+"				in [range].
 "   1.00.002	19-Jul-2017	ENH: Support :KeepMatch ... /{string}/...
 "				replacement that differs from the match.
 "   1.00.001	02-May-2017	file creation
@@ -48,7 +52,7 @@ function! KeepText#Matches#Command( startLnum, endLnum, isInvert, arguments )
 	let l:matchedText = join(l:matches, '')
 
 	let l:deletedLineNum = l:lineNum - line('$')
-	let l:endLnum -= l:deletedLineNum
+	let l:endLnum = max([l:startLnum, l:endLnum - l:deletedLineNum])
 
 	if a:isInvert
 	    call setreg(l:register, l:matchedText, 'V')
