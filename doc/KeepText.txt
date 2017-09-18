@@ -63,6 +63,10 @@ USAGE							      *KeepText-usage*
 			Within the current line / [range], delete any text
 			that does not match {pattern} into the unnamed
 			register / [register]. Only match(es) are kept.
+:[range]KeepMatch [register] /{pattern}/{string}/[flags]
+			Like above, but keep {string} (which can refer to the
+			match via &, \1, etc.)
+
 :[range]KeepMatch! [register] /{pattern}/[flags]
 			Within the current line / [range], delete any text
 			that matches {pattern} into the unnamed
@@ -70,6 +74,9 @@ USAGE							      *KeepText-usage*
 			is kept. This is like
 			    :[range]substitute/{pattern}//[flags]
 			but it stores the deleted text in a register.
+:[range]KeepMatch! [register] /{pattern}/{string}/[flags]
+			Like above, but store {string} (which can refer to the
+			match via &, \1, etc.) in a register.
 
 EXAMPLE							    *KeepText-example*
 
