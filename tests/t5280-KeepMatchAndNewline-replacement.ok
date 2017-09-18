@@ -1,0 +1,22 @@
+[default text]
+foo, bar, baz, for, now, 
+foo, bar, bar, foo, 
+one, 
+two, new, 
+
+    space-indented line
+	tab-indented line
+	    softtabstop-indented line
+
+#   space-indented line
+#	tab-indented line
+#	    softtabstop-indented line
+
+
+	    //  space-indented line
+	    //	tab-indented line
+	    //	    softtabstop-indented line
+
+(xxxxx)(xxxxxx)(xxxx)(xxxxxx)(xxxxx)(xxxxxxx)(xxxxx)
+(xxxxx)(xxxx)(xxxxxxx)(xxxxxxx)(xxxxxx)(xxxxx)
+(xxx)
