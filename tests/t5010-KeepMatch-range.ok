@@ -1,6 +1,5 @@
 [default text]
-Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
-<foo> <bar> notyetimplemented </bar> </foo>
+foobarbazfornowfoobarbarfoo
 'one line''two line'
 
 	tab-indented line
