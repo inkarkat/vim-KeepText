@@ -18,13 +18,19 @@
 "				l:startLnum; this can happen when the {pattern}
 "				captures multiple line(s) beyond the last line
 "				in [range].
+"				Refactoring: Make matched text processing
+"				configurable by separating s:Command() from
+"				KeepText#Matches#Command() and passing in
+"				a:Init, a:Adder, a:Joiner Funcrefs.
+"				ENH: Add KeepText#Matches#AndNewline() for new
+"				:KeepMatchAndNewline command.
 "   1.00.002	19-Jul-2017	ENH: Support :KeepMatch ... /{string}/...
 "				replacement that differs from the match.
 "   1.00.001	02-May-2017	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! KeepText#Matches#Command( startLnum, endLnum, isInvert, arguments )
+function! s:Command( Init, Adder, Joiner, startLnum, endLnum, isInvert, arguments )
     let [l:startLnum, l:endLnum] = [ingo#range#NetStart(a:startLnum), ingo#range#NetEnd(a:endLnum)]
 
     let [l:register, l:remainder] = ingo#cmdargs#register#ParsePrependedWritableRegister(a:arguments, '')
@@ -40,16 +46,17 @@ function! KeepText#Matches#Command( startLnum, endLnum, isInvert, arguments )
 	let l:replacement = ''
     endif
 
-    let l:matches = []
+    let l:matches = call(a:Init, [])
     let l:lineNum = line('$')
     try
-	execute printf('%d,%dsubstitute%s%s%s\=s:Add(l:matches, l:replacement)%s%s',
+	execute printf('%d,%dsubstitute%s%s%s\=%s(l:matches, l:replacement)%s%s',
 	\   l:startLnum, l:endLnum,
 	\   l:separator, l:pattern, l:separator,
+	\   a:Adder,
 	\   l:separator, l:flags
 	\)
 
-	let l:matchedText = join(l:matches, '')
+	let l:matchedText = call(a:Joiner, [l:matches])
 
 	let l:deletedLineNum = l:lineNum - line('$')
 	let l:endLnum = max([l:startLnum, l:endLnum - l:deletedLineNum])
@@ -67,6 +74,9 @@ function! KeepText#Matches#Command( startLnum, endLnum, isInvert, arguments )
     endtry
 endfunction
 
+function! s:Init()
+    return []
+endfunction
 function! s:Add( matches, replacement )
     call add(
     \   a:matches,
@@ -76,6 +86,34 @@ function! s:Add( matches, replacement )
     \   )
     \)
     return ''
+endfunction
+function! s:Join( matches )
+    return join(a:matches, '')
+endfunction
+function! KeepText#Matches#Command( startLnum, endLnum, isInvert, arguments )
+    return s:Command('s:Init', 's:Add', 's:Join', a:startLnum, a:endLnum, a:isInvert, a:arguments)
+endfunction
+
+function! s:InitWithNewline()
+    return {}
+endfunction
+function! s:AddWithNewline( matches, replacement )
+    let l:lnum = line('.')
+    if ! has_key(a:matches, l:lnum)
+	let a:matches[l:lnum] = []
+    endif
+    return s:Add(a:matches[l:lnum], a:replacement)
+endfunction
+function! s:JoinWithNewline( matches )
+    let l:result = ''
+    for l:lnum in sort(keys(a:matches), 'ingo#collections#numsort')
+	let l:lineMatches = s:Join(a:matches[l:lnum])
+	let l:result .= l:lineMatches . (l:lineMatches =~# '\n$' ? '' : "\n")
+    endfor
+    return l:result
+endfunction
+function! KeepText#Matches#AndNewline( startLnum, endLnum, isInvert, arguments )
+    return s:Command('s:InitWithNewline', 's:AddWithNewline', 's:JoinWithNewline', a:startLnum, a:endLnum, a:isInvert, a:arguments)
 endfunction
 
 let &cpo = s:save_cpo
