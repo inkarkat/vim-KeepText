@@ -14,18 +14,17 @@ history				|KeepText-history|
 ==============================================================================
 DESCRIPTION						*KeepText-description*
 
-This plugin ...
-
-HOW IT WORKS								     *
-
-SOURCE									     *
-(Original Vim tip, Stack Overflow answer, ...)
-
-SEE ALSO								     *
-(Plugins offering complementary functionality, or plugins using this library.)
-
-RELATED WORKS								     *
-(Alternatives from other authors, other approaches, references not used here.)
+It is easy to delete some text: By {motion}, visual selection, with
+|:substitute|. The opposite isn't so easy: You'd have to yank to a temporary
+register, delete the remainder, and paste; you cannot simply invert a
+selection; with |:substitute|, the match has to be captured and referenced in
+the replacement.
+This plugin adds commands for normal, visual, and command-line mode that let
+you easily specify text (by {motion}, selection, [range], or {pattern}), and
+then removes everything else in the command's scope (line, buffer, last
+selection, [range]). It basically offers delete commands that operate on an
+inverted target. Like normal delete, the removed text is properly stored in a
+register.
 
 ==============================================================================
 USAGE							      *KeepText-usage*
@@ -77,9 +76,41 @@ USAGE							      *KeepText-usage*
 :[range]KeepMatch! [register] /{pattern}/{string}/[flags]
 			Like above, but store {string} (which can refer to the
 			match via &, \1, etc.) in a register.
+							*:KeepMatchAndNewline*
+:[range]KeepMatchAndNewline [register] /{pattern}/[flags]
+			Within the current line / [range], delete any text
+			that does not match {pattern} into the unnamed
+			register / [register]. Only match(es) and newline
+			characters are kept; i.e. in contrast to |:KeepMatch|,
+			this variant does not join lines if the newline is not
+			included in {pattern}. It's similar to >
+			    :[range]global/^/KeepMatch ...
+<			but with correct register contents. Note: When
+			executed on a single line, it's the same as
+			|:KeepMatch|.
+:[range]KeepMatchAndNewline [register] /{pattern}/{string}/[flags]
+			Like above, but keep {string} (which can refer to the
+			match via &, \1, etc.)
+:[range]KeepMatchAndNewline! [register] /{pattern}/[flags]
+:[range]KeepMatchAndNewline! [register] /{pattern}/{string}/[flags]
+			Within the current line / [range], delete any text
+			that matches {pattern} and newlines into the unnamed
+			register / [register]. Only text that does not match
+			and newlines are kept. This is like
+			    :[range]substitute/{pattern}//[flags]
+			but it stores the deleted text in a register.
 
 EXAMPLE							    *KeepText-example*
 
+We want to keep just the quoted text: Hello, world!
+He said: "Hello, world!" and then left. ~
+
+Instead of yi"0_Dp or yi"Vp, we can now simply do <Leader>ki", or vi"<Leader>k.
+Instead of >
+    :substitute/.*"\(.*\)".*/\1/
+use: >
+    :KeepMatch/"\zs.*\ze"/
+<
 ==============================================================================
 INSTALLATION					       *KeepText-installation*
 
