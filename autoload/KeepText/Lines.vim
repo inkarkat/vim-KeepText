@@ -1,20 +1,15 @@
 " KeepText/Lines.vim: Keep only text in {range} in buffer.
 "
 " DEPENDENCIES:
-"   - ingo/err.vim autoload script
-"   - ingo/lines.vim autoload script
-"   - ingo/range.vim autoload script
-"   - ingo/range/invert.vim autoload script
-"   - ingo/range/lines.vim autoload script
-"   - ingo/range/merge.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2016 Ingo Karkat
+" Copyright: (C) 2016-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	001	23-Dec-2016	file creation
+"   1.00.001	23-Dec-2016	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
