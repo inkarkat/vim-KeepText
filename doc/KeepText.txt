@@ -36,6 +36,12 @@ USAGE							      *KeepText-usage*
 			too).
 {Visual}["x]<Leader>k	Delete any text in the selected line(s) except the
 			selected text itself, and any indent / comment prefix.
+		   *<Leader>kkn* *v_<Leader>kkn* *<Leader>kkN* *v_<Leader>kkN*
+["x]<Leader>kkn		Within the current line / [N] / selected lines, delete
+{Visual}["x]<Leader>kkn any text that does not match the last search pattern.
+["x]<Leader>kkN		Same sa <Leader>kkn, but query whether to keep each
+{Visual}["x]<Leader>kkN	match.
+
 						   *g<Leader>k* *v_g<Leader>k*
 ["x]g<Leader>k{motion}	Delete any text in the entire buffer except for the
 			text that {motion} moves over itself.
@@ -163,7 +169,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2013-2018 Ingo Karkat
+Copyright: (C) 2013-2019 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
