@@ -1,15 +1,9 @@
 " KeepText/Matches.vim: Keep only matches in range.
 "
 " DEPENDENCIES:
-"   - ingo/cmdargs/register.vim autoload script
-"   - ingo/cmdargs/substitute.vim autoload script
-"   - ingo/collections.vim autoload script
-"   - ingo/err.vim autoload script
-"   - ingo/lines.vim autoload script
-"   - ingo/range.vim autoload script
-"   - ingo/subst/replacement.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2017-2018 Ingo Karkat
+" Copyright: (C) 2017-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
