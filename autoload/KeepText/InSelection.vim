@@ -1,14 +1,9 @@
 " KeepText/InSelection.vim: Keep only {motion} text in selection.
 "
 " DEPENDENCIES:
-"   - ingo/compat.vim autoload script
-"   - ingo/msg.vim autoload script
-"   - ingo/pos.vim autoload script
-"   - ingo/str/find.vim autoload script
-"   - ingo/str/fromrange.vim autoload script
-"   - ingo/strdisplaywidth.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2016 Ingo Karkat
+" Copyright: (C) 2013-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
