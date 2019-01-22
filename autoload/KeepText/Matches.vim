@@ -1,19 +1,22 @@
 " KeepText/Matches.vim: Keep only matches in range.
 "
 " DEPENDENCIES:
-"   - ingo/cmdargs/pattern.vim autoload script
 "   - ingo/cmdargs/register.vim autoload script
+"   - ingo/cmdargs/substitute.vim autoload script
+"   - ingo/collections.vim autoload script
 "   - ingo/err.vim autoload script
 "   - ingo/lines.vim autoload script
 "   - ingo/range.vim autoload script
 "   - ingo/subst/replacement.vim autoload script
 "
-" Copyright: (C) 2017 Ingo Karkat
+" Copyright: (C) 2017-2018 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.004	09-Aug-2018	Refactoring: Use
+"                               ingo#cmdargs#substitute#GetFlags().
 "   1.00.003	19-Sep-2017	FIX: Don't let l:endLnum become smaller than
 "				l:startLnum; this can happen when the {pattern}
 "				captures multiple line(s) beyond the last line
@@ -39,7 +42,7 @@ function! s:Command( Init, Adder, Joiner, startLnum, endLnum, isInvert, argument
 	call ingo#err#Set('Invalid /{pattern}/')
 	return 0
     endif
-    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# '^\%(&\?[cegiInp#lr]*\)$'
+    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# '^\%(' . ingo#cmdargs#substitute#GetFlags() . '\)$'
 	" Syntax differs from :substitute in that {string} is optional, but
 	" {flags} can still be specified.
 	let l:flags = l:replacement
