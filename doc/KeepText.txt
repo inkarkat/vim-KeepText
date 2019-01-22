@@ -49,38 +49,38 @@ USAGE							      *KeepText-usage*
 			Register x contains the deleted text.
 
 								  *:KeepRange*
-:[range]KeepRange [register] {range}
+:[range]KeepRange [{register}] {range}
 			Delete any lines of the buffer / within [range] except
 			those that are covered by {range} into the unnamed
-			register / [register].
-:[range]KeepRange! [register] {range}
+			register / [{register}].
+:[range]KeepRange! [{register}] {range}
 			Delete any lines of the buffer / within [range] that
 			are covered by {range} into the unnamed register /
-			[register].
+			[{register}].
 								  *:KeepMatch*
-:[range]KeepMatch [register] /{pattern}/[flags]
+:[range]KeepMatch [{register}] /{pattern}/[flags]
 			Within the current line / [range], delete any text
 			that does not match {pattern} into the unnamed
-			register / [register]. Only match(es) are kept.
-:[range]KeepMatch [register] /{pattern}/{string}/[flags]
+			register / [{register}]. Only match(es) are kept.
+:[range]KeepMatch [{register}] /{pattern}/{string}/[flags]
 			Like above, but keep {string} (which can refer to the
 			match via &, \1, etc.)
 
-:[range]KeepMatch! [register] /{pattern}/[flags]
+:[range]KeepMatch! [{register}] /{pattern}/[flags]
 			Within the current line / [range], delete any text
 			that matches {pattern} into the unnamed
-			register / [register]. Only text that does not match
+			register / [{register}]. Only text that does not match
 			is kept. This is like
 			    :[range]substitute/{pattern}//[flags]
 			but it stores the deleted text in a register.
-:[range]KeepMatch! [register] /{pattern}/{string}/[flags]
+:[range]KeepMatch! [{register}] /{pattern}/{string}/[flags]
 			Like above, but store {string} (which can refer to the
 			match via &, \1, etc.) in a register.
 							*:KeepMatchAndNewline*
-:[range]KeepMatchAndNewline [register] /{pattern}/[flags]
+:[range]KeepMatchAndNewline [{register}] /{pattern}/[flags]
 			Within the current line / [range], delete any text
 			that does not match {pattern} into the unnamed
-			register / [register]. Only match(es) and newline
+			register / [{register}]. Only match(es) and newline
 			characters are kept; i.e. in contrast to |:KeepMatch|,
 			this variant does not join lines if the newline is not
 			included in {pattern}. It's similar to >
@@ -88,14 +88,14 @@ USAGE							      *KeepText-usage*
 <			but with correct register contents. Note: When
 			executed on a single line, it's the same as
 			|:KeepMatch|.
-:[range]KeepMatchAndNewline [register] /{pattern}/{string}/[flags]
+:[range]KeepMatchAndNewline [{register}] /{pattern}/{string}/[flags]
 			Like above, but keep {string} (which can refer to the
 			match via &, \1, etc.)
-:[range]KeepMatchAndNewline! [register] /{pattern}/[flags]
-:[range]KeepMatchAndNewline! [register] /{pattern}/{string}/[flags]
+:[range]KeepMatchAndNewline! [{register}] /{pattern}/[flags]
+:[range]KeepMatchAndNewline! [{register}] /{pattern}/{string}/[flags]
 			Within the current line / [range], delete any text
 			that matches {pattern} and newlines into the unnamed
-			register / [register]. Only text that does not match
+			register / [{register}]. Only text that does not match
 			and newlines are kept. This is like
 			    :[range]substitute/{pattern}//[flags]
 			but it stores the deleted text in a register.
