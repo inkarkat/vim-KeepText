@@ -9,6 +9,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.005	24-Jan-2019	ENH: Support special [<] flag in
+"                               KeepText#Matches#Command() to keep the indent
+"                               (and comment prefix) as well.
 "   1.00.004	09-Aug-2018	Refactoring: Use
 "                               ingo#cmdargs#substitute#GetFlags().
 "   1.00.003	19-Sep-2017	FIX: Don't let l:endLnum become smaller than
@@ -45,19 +48,19 @@ function! s:Command( Init, Adder, Joiner, startLnum, endLnum, isInvert, argument
     endif
     if l:flags =~# l:indentFlag
 	let l:flags = ingo#str#trd(l:flags, l:indentFlag)
-	" Note: Need to enforce a non-empty match of indent (via \%>1c) because
-	" an empty match would clear out the entire line, and that's not desired.
-	" Note: Because we search for comment prefixes in the entire range, not
-	" every line necessarily has one (or with the same nesting level).
-	" Therefore, make the comment prefix optional via
-	" a:minNumberOfCommentPrefixesExpr = 0.
-	let l:pattern = printf('\%%(%s\%%>1c\|%s\)', escape(ingo#comments#GetSplitIndentPattern(0, l:startLnum, l:endLnum), l:separator), (empty(l:pattern) ? @/ : l:pattern))
+
+	let l:indentsByLnum = map(
+	\   ingo#dict#FromKeys(range(l:startLnum, l:endLnum), ''),
+	\   'ingo#comments#SplitIndentAndText(getline(0 + v:key))[0]'
+	\)
+    else
+	let l:indentsByLnum = {}
     endif
 
     let l:matches = call(a:Init, [])
     let l:lineNum = line('$')
     try
-	execute printf('%d,%dsubstitute%s%s%s\=%s(l:matches, l:replacement)%s%s',
+	execute printf('%d,%dsubstitute%s%s%s\=%s(l:indentsByLnum, l:matches, l:replacement)%s%s',
 	\   l:startLnum, l:endLnum,
 	\   l:separator, l:pattern, l:separator,
 	\   a:Adder,
@@ -85,14 +88,23 @@ endfunction
 function! s:Init()
     return []
 endfunction
-function! s:Add( matches, replacement )
-    call add(
-    \   a:matches,
-    \   (empty(a:replacement) ?
-    \       submatch(0) :
-    \       ingo#subst#replacement#DefaultReplacementOnPredicate(1, {'replacement': a:replacement})
-    \   )
+function! s:Add( prefixesByLnum, matches, replacement )
+    let l:match = (empty(a:replacement) ?
+    \   submatch(0) :
+    \   ingo#subst#replacement#DefaultReplacementOnPredicate(1, {'replacement': a:replacement})
     \)
+
+    let l:currentLnum = line('.')
+    let l:prefix = get(a:prefixesByLnum, l:currentLnum, '')
+    let a:prefixesByLnum[l:currentLnum] = ''  | " Consume each prefix only once per line.
+
+    if ! empty(l:prefix)
+	" Join indent prefix with match that has its indent removed.
+	let l:match = l:prefix . substitute(l:match, '^\s\+', '', '')
+    endif
+
+    call add(a:matches, l:match)
+
     return ''
 endfunction
 function! s:Join( matches )
@@ -105,12 +117,12 @@ endfunction
 function! s:InitWithNewline()
     return {}
 endfunction
-function! s:AddWithNewline( matches, replacement )
+function! s:AddWithNewline( prefixesByLnum, matches, replacement )
     let l:lnum = line('.')
     if ! has_key(a:matches, l:lnum)
 	let a:matches[l:lnum] = []
     endif
-    return s:Add(a:matches[l:lnum], a:replacement)
+    return s:Add(a:prefixesByLnum, a:matches[l:lnum], a:replacement)
 endfunction
 function! s:JoinWithNewline( matches )
     let l:result = ''
