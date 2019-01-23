@@ -1,3 +1,5 @@
+call vimtest#AddDependency('vim-ingo-library')
+
 runtime plugin/KeepText.vim
 
 function! AssertDeletedText( register, exp, description )
