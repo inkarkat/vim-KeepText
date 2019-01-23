@@ -38,7 +38,9 @@ USAGE							      *KeepText-usage*
 			selected text itself, and any indent / comment prefix.
 		   *<Leader>kkn* *v_<Leader>kkn* *<Leader>kkN* *v_<Leader>kkN*
 ["x]<Leader>kkn		Within the current line / [N] / selected lines, delete
-{Visual}["x]<Leader>kkn any text that does not match the last search pattern.
+{Visual}["x]<Leader>kkn any text that does not match the last search pattern,
+			and also keep any indent (including a potential
+			comment prefix).
 ["x]<Leader>kkN		Same sa <Leader>kkn, but query whether to keep each
 {Visual}["x]<Leader>kkN	match.
 
