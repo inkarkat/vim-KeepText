@@ -8,12 +8,20 @@
 "   - visualrepeat.vim (vimscript #3848) autoload script (optional)
 "   - visualrepeat/reapply.vim autoload script (optional)
 "
-" Copyright: (C) 2013-2016 Ingo Karkat
+" Copyright: (C) 2013-2017 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.005	04-Apr-2017	Handle no-op with visual linewise selection or
+"				motion that covers the entire line. We must not
+"				replace anything (as endLnum < startLnum), and
+"				instead put the original text back before the
+"				current line.
+"				ENH: Omit the "3 lines less / 3 lines more"
+"				messages and instead print our own message in
+"				case there was a significant change in lines.
 "   1.00.004	14-Dec-2016	Handle selection overlapping with indent: Do not
 "				add indent then.
 "	003	13-Dec-2016	ENH: Keep indent [+ comment prefix] in text.
@@ -38,7 +46,7 @@ function! KeepText#KeepText( type, startLnum, endLnum )
 	let l:isBlockWise = (visualmode() ==# "\<C-v>")
 	let l:startCol = col("'<")
 
-	execute 'normal! gvd'
+	execute 'silent normal! gvd'
     else
 	let l:isBlockWise = (a:type ==# 'block')
 	let l:startCol = col("'[")
@@ -48,7 +56,7 @@ function! KeepText#KeepText( type, startLnum, endLnum )
 	let l:save_selection = &selection
 	set selection=inclusive
 	try
-	    execute 'normal! g`[' . (a:type ==# 'line' ? 'V' : 'v') . 'g`]d'
+	    execute 'silent normal! g`[' . (a:type ==# 'line' ? 'V' : 'v') . 'g`]d'
 	finally
 	    let &selection = l:save_selection
 	endtry
@@ -68,7 +76,20 @@ function! KeepText#KeepText( type, startLnum, endLnum )
     " Replace the range with the text to be kept. Store the replaced lines
     " (which don't contain the text to be kept any longer, it was deleted) again
     " in the default register, and return that.
-    call ingo#lines#Replace(a:startLnum, a:endLnum + l:keptLineOffset, l:keptText, '"')
+    let l:netEndLnum = a:endLnum + l:keptLineOffset
+    if l:netEndLnum >= a:startLnum
+	call ingo#lines#Replace(a:startLnum, l:netEndLnum, l:keptText, '"')
+    else
+	" Special case: The entire line(s) have been selected. The mapping is a
+	" no-op; nothing got deleted.
+	silent call ingo#lines#PutBefore(a:startLnum, l:keptText)
+	let @" = ''
+    endif
+
+    let l:removedLineNum = l:lastLnum - line('$')
+    if l:removedLineNum > 0 && l:removedLineNum >= &report
+	echomsg (l:removedLineNum == 1 ? '1 line less' : printf('%d fewer lines', l:removedLineNum))
+    endif
 
     return @"
 endfunction
