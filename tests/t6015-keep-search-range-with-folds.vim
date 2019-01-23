@@ -9,9 +9,9 @@ setlocal foldmethod=manual
 call vimtest#StartTap()
 call vimtap#Plan(1)
 
-let @/ = '^\s\+\S\+'
+let @/ = '\w\+-indented'
 7normal 3\kkn
-call vimtap#Is(@", " line\n line\n line\n\n#   space-indented line\n#\ttab-indented line\n#\t    softtabstop-indented line\n\n\n", "deleted after indented first WORD")
+call vimtap#Is(@", " line\n line\n line\n\n line\n line\n line\n\n\n", "deleted after indented first WORD")
 
 call vimtest#SaveOut()
 call vimtest#Quit()
