@@ -3,7 +3,7 @@ Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
 <foo> <bar> notyetimplemented </bar> </foo>
 comment.new.    line
 	tab-indented line
-	    
+	    line
 
 #   space-indented line
 #	tab-indented line
