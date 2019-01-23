@@ -1,0 +1,23 @@
+[default text]
+Tuple is (foo, bar, baz, hehe, hihi, hoho) for now.
+<foo> <bar> notyetimplemented </bar> </foo>
+This 'one line' is a comment.
+This 'two line' is new.
+
+    space line
+	tab line
+	    softtabstop line
+
+#   space line
+#	tab line
+#	    softtabstop line
+
+
+	    //  space line
+	    //	tab line
+	    //	    softtabstop line
+
+Erat volutpat. Donec non tortor. Vivamus posuere nisi mollis dolor. Quisque
+porttitor nisi ac elit. Nullam tincidunt ligula vitae nulla.
+
+EOF
