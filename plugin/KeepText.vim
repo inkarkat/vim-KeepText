@@ -1,9 +1,9 @@
 " KeepText.vim: Keep only {motion} text in lines or the buffer.
 "
 " DEPENDENCIES:
-"   - KeepText.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2017 Ingo Karkat
+" Copyright: (C) 2013-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -68,6 +68,13 @@ nnoremap <silent> <Plug>(KeepTextBufferVisual)
 \call KeepText#BufferOperator('visual', 1)<CR>
 
 
+nnoremap <Plug>(KeepTextAllMatchesLine)          :call KeepText#Objects#LastSearchPattern(0, v:register)<Home>call setline('.', getline('.'))<Bar><CR>
+vnoremap <Plug>(KeepTextAllMatchesSelection)     :call setline("'<", getline("'<"))<Bar>'<,'>call KeepText#Objects#LastSearchPattern(0, v:register)<CR>
+nnoremap <Plug>(KeepTextQueriedMatchesLine)      :call KeepText#Objects#LastSearchPattern(1, v:register)<Home>call setline('.', getline('.'))<Bar><CR>
+vnoremap <Plug>(KeepTextQueriedMatchesSelection) :call setline("'<", getline("'<"))<Bar>'<,'>call KeepText#Objects#LastSearchPattern(1, v:register)<CR>
+
+
+
 if ! hasmapto('<Plug>(KeepTextLineOperator)', 'n')
     nmap <Leader>k <Plug>(KeepTextLineOperator)
 endif
@@ -82,6 +89,19 @@ if ! hasmapto('<Plug>(KeepTextBufferVisual)', 'x')
 endif
 if ! hasmapto('<Plug>(KeepTextSelectionOperator)', 'n')
     nmap <Leader>zk <Plug>(KeepTextSelectionOperator)
+endif
+
+if ! hasmapto('<Plug>(KeepTextAllMatchesLine)', 'n')
+    nmap <Leader>kkn <Plug>(KeepTextAllMatchesLine)
+endif
+if ! hasmapto('<Plug>(KeepTextAllMatchesSelection)', 'v')
+    xmap <Leader>kkn <Plug>(KeepTextAllMatchesSelection)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedMatchesLine)', 'n')
+    nmap <Leader>kkN <Plug>(KeepTextQueriedMatchesLine)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedMatchesSelection)', 'v')
+    xmap <Leader>kkN <Plug>(KeepTextQueriedMatchesSelection)
 endif
 
 let &cpo = s:save_cpo
