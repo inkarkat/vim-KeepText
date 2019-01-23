@@ -28,19 +28,30 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! s:Command( Init, Adder, Joiner, startLnum, endLnum, isInvert, arguments )
+    let l:indentFlag = '<'
     let [l:startLnum, l:endLnum] = [ingo#range#NetStart(a:startLnum), ingo#range#NetEnd(a:endLnum)]
 
     let [l:register, l:remainder] = ingo#cmdargs#register#ParsePrependedWritableRegister(a:arguments, '')
-    let [l:separator, l:pattern, l:replacement, l:flags, l:count] = ingo#cmdargs#substitute#Parse(l:remainder)
+    let [l:separator, l:pattern, l:replacement, l:flags, l:count] = ingo#cmdargs#substitute#Parse(l:remainder, {'additionalFlags': l:indentFlag})
     if empty(l:separator)
 	call ingo#err#Set('Invalid /{pattern}/')
 	return 0
     endif
-    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# '^\%(' . ingo#cmdargs#substitute#GetFlags() . '\)$'
+    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# '^\%(' . ingo#cmdargs#substitute#GetFlags(l:indentFlag) . '\)$'
 	" Syntax differs from :substitute in that {string} is optional, but
 	" {flags} can still be specified.
 	let l:flags = l:replacement
 	let l:replacement = ''
+    endif
+    if l:flags =~# l:indentFlag
+	let l:flags = ingo#str#trd(l:flags, l:indentFlag)
+	" Note: Need to enforce a non-empty match of indent (via \%>1c) because
+	" an empty match would clear out the entire line, and that's not desired.
+	" Note: Because we search for comment prefixes in the entire range, not
+	" every line necessarily has one (or with the same nesting level).
+	" Therefore, make the comment prefix optional via
+	" a:minNumberOfCommentPrefixesExpr = 0.
+	let l:pattern = printf('\%%(%s\%%>1c\|%s\)', escape(ingo#comments#GetSplitIndentPattern(0, l:startLnum, l:endLnum), l:separator), (empty(l:pattern) ? @/ : l:pattern))
     endif
 
     let l:matches = call(a:Init, [])
