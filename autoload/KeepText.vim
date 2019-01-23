@@ -1,14 +1,11 @@
 " KeepText.vim: Keep only {motion} text in lines or the buffer.
 "
 " DEPENDENCIES:
-"   - ingo/comments.vim autoload script
-"   - ingo/lines.vim autoload script
-"   - ingo/register.vim autoload script
-"   - repeat.vim (vimscript #2136) autoload script (optional)
-"   - visualrepeat.vim (vimscript #3848) autoload script (optional)
-"   - visualrepeat/reapply.vim autoload script (optional)
+"   - ingo-library.vim plugin
+"   - repeat.vim (vimscript #2136) plugin (optional)
+"   - visualrepeat.vim (vimscript #3848) plugin (optional)
 "
-" Copyright: (C) 2013-2017 Ingo Karkat
+" Copyright: (C) 2013-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
