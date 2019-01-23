@@ -69,10 +69,10 @@ USAGE							      *KeepText-usage*
 :[range]KeepMatch [{register}] /{pattern}/[flags]
 			Within the current line / [range], delete any text
 			that does not match {pattern} into the unnamed
-			register / [{register}]. Only match(es) are kept. Pass
-			the special [<] flag to only / also (with [g] flag)
-			keep any indent (including a potential comment
-			prefix), too.
+			register / [{register}]. Only match(es) are kept.
+			Pass the special [<] flag to also keep any indent
+			(including a potential comment prefix), both in the
+			line and as part of the deleted text.
 :[range]KeepMatch [{register}] /{pattern}/{string}/[flags]
 			Like above, but keep {string} (which can refer to the
 			match via &, \1, etc.)
@@ -94,9 +94,10 @@ USAGE							      *KeepText-usage*
 			register / [{register}]. Only match(es) and newline
 			characters are kept; i.e. in contrast to |:KeepMatch|,
 			this variant does not join lines if the newline is not
-			included in {pattern}. Pass the special [<] flag to
-			only / also (with [g] flag) keep any indent (including
-			a potential comment prefix), too.
+			included in {pattern}.
+			Pass the special [<] flag to also keep any indent
+			(including a potential comment prefix), both in the
+			line and as part of the deleted text.
 			This command is similar to >
 			    :[range]global/^/KeepMatch ...
 <			but with correct register contents. Note: When
@@ -139,7 +140,7 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES					       *KeepText-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.036 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.035 or
   higher.
 - repeat.vim (vimscript #2136) plugin (optional)
 - visualrepeat.vim (vimscript #3848) plugin (optional)
