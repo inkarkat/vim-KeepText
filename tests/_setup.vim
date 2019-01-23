@@ -1,4 +1,7 @@
 call vimtest#AddDependency('vim-ingo-library')
+if g:runVimTest =~# '-\%(visual\)\?repeat[.-]'
+    call vimtest#AddDependency('vim-repeat')
+endif
 
 runtime plugin/KeepText.vim
 
