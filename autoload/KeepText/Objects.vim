@@ -11,7 +11,7 @@
 "   1.00.001	23-Jan-2019	file creation
 
 function! KeepText#Objects#LastSearchPattern( isQuery, register ) range
-    if ! KeepText#Matches#AndNewline(a:firstline, a:lastline, 0, a:register . ' //g' . (a:isQuery ? 'c' : ''))
+    if ! KeepText#Matches#AndNewline(a:firstline, a:lastline, 0, a:register . ' //g<' . (a:isQuery ? 'c' : ''))
 	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
     endif
 endfunction
