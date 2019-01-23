@@ -10,7 +10,7 @@ call vimtap#Is(@", " volutpat.  non tortor.  posuere nisi mollis dolor. \nportti
 
 let @/ = '\%(^\s\+\)\@<=\S\+'
 4normal "a5\kkn
-call vimtap#Is(@a, "This 'one line' is a comment.\nThis 'two line' is new.\n\n line\n line\n", "deleted after indented first WORD")
+call vimtap#Is(@a, "This 'one line' is a comment.\nThis 'two line' is new.\n\n     line\n\t line\n", "deleted after indented first WORD")
 
 call vimtest#SaveOut()
 call vimtest#Quit()
