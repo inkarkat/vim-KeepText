@@ -129,10 +129,16 @@ use: >
 ==============================================================================
 INSTALLATION					       *KeepText-installation*
 
-This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
-the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
-vimball or via the |:UseVimball| command. >
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-KeepText
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
     vim KeepText*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
@@ -167,6 +173,11 @@ KNOWN PROBLEMS					     *KeepText-known-problems*
 TODO							       *KeepText-todo*
 
 IDEAS							      *KeepText-ideas*
+
+CONTRIBUTING						 *KeepText-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-KeepText/issues or email (address below).
 
 ==============================================================================
 HISTORY							    *KeepText-history*
