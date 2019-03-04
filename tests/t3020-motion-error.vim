@@ -1,5 +1,7 @@
 " Test errors in moved-over text inside selection.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(4)

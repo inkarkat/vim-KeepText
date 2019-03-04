@@ -1,5 +1,7 @@
 " Test keeping last search pattern text at multiple lines that cover closed folds.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 setlocal foldmethod=manual
 7,10fold

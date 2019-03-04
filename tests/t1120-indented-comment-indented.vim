@@ -1,5 +1,7 @@
 " Test keeping moved-over text and indented comment followed by indent in a line.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(6)

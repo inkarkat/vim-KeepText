@@ -1,5 +1,7 @@
 " Test keeping blockwise selections at various locations.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 set selection=inclusive
 call vimtest#StartTap()

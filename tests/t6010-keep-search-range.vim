@@ -1,5 +1,7 @@
 " Test keeping last search pattern text at multiple lines.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(2)
