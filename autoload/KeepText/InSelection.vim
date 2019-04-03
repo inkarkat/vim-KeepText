@@ -45,8 +45,7 @@ function! KeepText#InSelection#KeepText( type )
     let l:unusedSingleWidthCharacter = s:FindUnusedSingleWidthCharacter(l:originalSelectedText)
 
     " Restore change marks; the yank has set those to the visual selection.
-    call setpos("'[", l:keepStartPos)
-    call setpos("']", l:keepEndPos)
+    call ingo#change#Set(l:keepStartPos, l:keepEndPos)
 
     " Note: Need to use an "inclusive" selection to make `] include the
     " last moved-over character.

@@ -111,7 +111,7 @@ We want to keep just the quoted text: Hello, world!
 He said: "Hello, world!" and then left.
 ```
 
-Instead of yi"0\_Dp or yi"Vp, we can now simply do <Leader>ki", or vi"<Leader>k.
+Instead of yi"0\_Dp or yi"Vp, we can now simply do &lt;Leader&gt;ki", or vi"&lt;Leader&gt;k.
 Instead of
 
     :substitute/.*"\(.*\)".*/\1/
@@ -142,7 +142,7 @@ To uninstall, use the :RmVimball command.
 ### DEPENDENCIES
 
 - Requires Vim 7.0 or higher.
-- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.035 or
+- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.037 or
   higher.
 - repeat.vim ([vimscript #2136](http://www.vim.org/scripts/script.php?script_id=2136)) plugin (optional)
 - visualrepeat.vim ([vimscript #3848](http://www.vim.org/scripts/script.php?script_id=3848)) plugin (optional)
@@ -153,7 +153,7 @@ CONFIGURATION
 For a permanent configuration, put the following commands into your vimrc:
 
 If you want to use different mappings, map your keys to the
-<Plug>(KeepText...) mapping targets _before_ sourcing the script
+&lt;Plug&gt;(KeepText...) mapping targets _before_ sourcing the script
 (e.g. in your vimrc):
 
     nmap <Leader>k <Plug>(KeepTextLineOperator)
@@ -181,4 +181,4 @@ First published version.
 Copyright: (C) 2013-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
-Maintainer:     Ingo Karkat <ingo@karkat.de>
+Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
