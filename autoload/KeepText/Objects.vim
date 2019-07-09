@@ -40,6 +40,27 @@ function! KeepText#Objects#LastSearchPattern( isQuery, register ) range abort
     \)
 endfunction
 
+let s:pattern = ''
+function! KeepText#Objects#QueriedPattern( isRecall, register ) range abort
+    call ingo#err#Clear()
+
+    if ! a:isRecall
+	let l:pattern = input('/')
+	if empty(l:pattern) | return 1 | endif
+	let s:pattern = l:pattern
+    elseif empty(s:pattern)
+	call ingo#err#Set('No pattern defined yet')
+	return 0
+    endif
+
+    call s:KeepTextWithPattern(
+    \   a:firstline, a:lastline,
+    \   a:register,
+    \   '/' . ingo#escape#OnlyUnescaped(s:pattern, '/') . '/g<' . (exists('g:runVimTest') ? '' : 'c'),
+    \   "\<Plug>(KeepTextQueried" . (a:isRecall ? 'Recalled' : 'Queried') . 'PatternMatches'
+    \)
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :

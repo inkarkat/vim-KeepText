@@ -1,4 +1,4 @@
-" Test repeat of keeping last search pattern text.
+" Test repeat of keeping last search pattern text with count.
 
 call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
 

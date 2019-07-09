@@ -91,6 +91,26 @@ nnoremap <Plug>(KeepTextQueriedMatchesVisual)
 \execute 'normal!' KeepText#VisualMode()<Bar>
 \'<,'>call KeepText#Objects#LastSearchPattern(1, v:register)<CR>
 
+nnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
+\ :call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<Home>call setline('.', getline('.'))<Bar><CR>
+vnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+\ :<C-u>call setline("'<", getline("'<"))<Bar>
+\'<,'>call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
+nnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\execute 'normal!' KeepText#VisualMode()<Bar>
+\'<,'>call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
+
+nnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
+\ :call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<Home>call setline('.', getline('.'))<Bar><CR>
+vnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
+\ :<C-u>call setline("'<", getline("'<"))<Bar>
+\'<,'>call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
+nnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\execute 'normal!' KeepText#VisualMode()<Bar>
+\'<,'>call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
+
 
 
 if ! hasmapto('<Plug>(KeepTextLineOperator)', 'n')
@@ -120,6 +140,18 @@ if ! hasmapto('<Plug>(KeepTextQueriedMatchesLine)', 'n')
 endif
 if ! hasmapto('<Plug>(KeepTextQueriedMatchesVisual)', 'v')
     xmap <Leader>kkN <Plug>(KeepTextQueriedMatchesVisual)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedQueriedPatternMatchesLine)', 'n')
+    nmap <Leader>kk/ <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedQueriedPatternMatchesVisual)', 'v')
+    xmap <Leader>kk/ <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedRecalledPatternMatchesLine)', 'n')
+    nmap <Leader>kk? <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
+endif
+if ! hasmapto('<Plug>(KeepTextQueriedRecalledPatternMatchesVisual)', 'v')
+    xmap <Leader>kk? <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
 endif
 
 let &cpo = s:save_cpo

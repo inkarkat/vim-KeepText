@@ -32,8 +32,14 @@ USAGE
     {Visual}["x]<Leader>kkn any text that does not match the last search pattern,
                             and also keep any indent (including a potential
                             comment prefix).
-    ["x]<Leader>kkN         Same sa <Leader>kkn, but query whether to keep each
+    ["x]<Leader>kkN         Same as <Leader>kkn, but query whether to keep each
     {Visual}["x]<Leader>kkN match.
+
+    ["x]<Leader>kk/         Same as <Leader>kkN, but query a search pattern (and
+    {Visual}["x]<Leader>kk/ also query whether to keep each match).
+    ["x]<Leader>kk?         Same as <Leader>kkN, but reuse the previously queried
+    {Visual}["x]<Leader>kk? search pattern from <Leader>kk/ (and also query
+                            whether to keep each match).
 
     ["x]g<Leader>k{motion}  Delete any text in the entire buffer except for the
                             text that {motion} moves over itself.
@@ -161,6 +167,10 @@ If you want to use different mappings, map your keys to the
     nmap <Leader>K <Plug>(KeepTextBufferOperator)
     xmap <Leader>K <Plug>(KeepTextBufferVisual)
     nmap <Leader>z <Plug>(KeepTextSelectionOperator)
+    nmap <Leader>/ <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
+    xmap <Leader>/ <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+    nmap <Leader>? <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
+    xmap <Leader>? <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
 
 CONTRIBUTING
 ------------------------------------------------------------------------------
