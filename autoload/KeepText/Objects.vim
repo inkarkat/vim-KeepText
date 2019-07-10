@@ -9,10 +9,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.002	24-Jan-2019	Implement repeat.
-"   1.00.001	23-Jan-2019	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 

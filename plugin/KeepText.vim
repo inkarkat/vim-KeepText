@@ -7,21 +7,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.006	24-Jan-2019	ENH: Add <Leader>kkn and <Leader>kkN for keeping
-"                               (all / queried matches of) last search pattern
-"                               in line / selection.
-"   1.00.005	02-May-2017	Add :KeepMatch command.
-"   1.00.004	01-May-2017	Rename :KeepText to :KeepRange.
-"   1.00.003	14-Dec-2016	Add <Leader>zk mapping.
-"   	002	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
-"				for normal mode repeat of a visual mapping.
-"				When supplying a [count] on such repeat of a
-"				previous linewise selection, now [count] number
-"				of lines instead of [count] times the original
-"				selection is used.
-"	001	01-Feb-2013	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_KeepText') || (v:version < 700)

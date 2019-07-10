@@ -7,26 +7,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.005	24-Jan-2019	ENH: Support special [<] flag in
-"                               KeepText#Matches#Command() to keep the indent
-"                               (and comment prefix) as well.
-"   1.00.004	09-Aug-2018	Refactoring: Use
-"                               ingo#cmdargs#substitute#GetFlags().
-"   1.00.003	19-Sep-2017	FIX: Don't let l:endLnum become smaller than
-"				l:startLnum; this can happen when the {pattern}
-"				captures multiple line(s) beyond the last line
-"				in [range].
-"				Refactoring: Make matched text processing
-"				configurable by separating s:Command() from
-"				KeepText#Matches#Command() and passing in
-"				a:Init, a:Adder, a:Joiner Funcrefs.
-"				ENH: Add KeepText#Matches#AndNewline() for new
-"				:KeepMatchAndNewline command.
-"   1.00.002	19-Jul-2017	ENH: Support :KeepMatch ... /{string}/...
-"				replacement that differs from the match.
-"   1.00.001	02-May-2017	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 

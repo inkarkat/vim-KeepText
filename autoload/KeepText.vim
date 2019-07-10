@@ -9,23 +9,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.005	04-Apr-2017	Handle no-op with visual linewise selection or
-"				motion that covers the entire line. We must not
-"				replace anything (as endLnum < startLnum), and
-"				instead put the original text back before the
-"				current line.
-"				ENH: Omit the "3 lines less / 3 lines more"
-"				messages and instead print our own message in
-"				case there was a significant change in lines.
-"   1.00.004	14-Dec-2016	Handle selection overlapping with indent: Do not
-"				add indent then.
-"	003	13-Dec-2016	ENH: Keep indent [+ comment prefix] in text.
-"				For blockwise selections, apply the indent to
-"				every line.
-"	002	02-Dec-2016	Complete implementation.
-"	001	18-Apr-2013	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
