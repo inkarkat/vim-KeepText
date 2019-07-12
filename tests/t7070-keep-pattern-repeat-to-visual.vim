@@ -1,7 +1,5 @@
 " Test repeat of keeping queried pattern text to selection.
 
-runtime plugin/visualrepeat.vim
-
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(2)
