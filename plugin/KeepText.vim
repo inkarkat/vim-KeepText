@@ -56,42 +56,42 @@ nnoremap <silent> <Plug>(KeepTextBufferVisual)
 \call KeepText#BufferOperator('visual', 1)<CR>
 
 
-nnoremap <Plug>(KeepTextAllMatchesLine)
+nnoremap <silent> <Plug>(KeepTextAllMatchesLine)
 \ :call KeepText#Objects#LastSearchPattern(0, v:register)<Home>call setline('.', getline('.'))<Bar><CR>
-vnoremap <Plug>(KeepTextAllMatchesVisual)
+vnoremap <silent> <Plug>(KeepTextAllMatchesVisual)
 \ :<C-u>call setline("'<", getline("'<"))<Bar>
 \'<,'>call KeepText#Objects#LastSearchPattern(0, v:register)<CR>
-nnoremap <Plug>(KeepTextAllMatchesVisual)
+nnoremap <silent> <Plug>(KeepTextAllMatchesVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
 \'<,'>call KeepText#Objects#LastSearchPattern(0, v:register)<CR>
 
-nnoremap <Plug>(KeepTextQueriedMatchesLine)
+nnoremap <silent> <Plug>(KeepTextQueriedMatchesLine)
 \ :call KeepText#Objects#LastSearchPattern(1, v:register)<Home>call setline('.', getline('.'))<Bar><CR>
-vnoremap <Plug>(KeepTextQueriedMatchesVisual)
+vnoremap <silent> <Plug>(KeepTextQueriedMatchesVisual)
 \ :<C-u>call setline("'<", getline("'<"))<Bar>
 \'<,'>call KeepText#Objects#LastSearchPattern(1, v:register)<CR>
-nnoremap <Plug>(KeepTextQueriedMatchesVisual)
+nnoremap <silent> <Plug>(KeepTextQueriedMatchesVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
 \'<,'>call KeepText#Objects#LastSearchPattern(1, v:register)<CR>
 
-nnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
+nnoremap <silent> <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
 \ :call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<Home>call setline('.', getline('.'))<Bar><CR>
-vnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+vnoremap <silent> <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
 \ :<C-u>call setline("'<", getline("'<"))<Bar>
 \'<,'>call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
-nnoremap <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+nnoremap <silent> <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
 \'<,'>call KeepText#Objects#QueriedPattern(0, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
 
-nnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
+nnoremap <silent> <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
 \ :call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<Home>call setline('.', getline('.'))<Bar><CR>
-vnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
+vnoremap <silent> <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
 \ :<C-u>call setline("'<", getline("'<"))<Bar>
 \'<,'>call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
-nnoremap <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
+nnoremap <silent> <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' KeepText#VisualMode()<Bar>
 \'<,'>call KeepText#Objects#QueriedPattern(1, v:register)<Bar>if ingo#err#IsSet()<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
