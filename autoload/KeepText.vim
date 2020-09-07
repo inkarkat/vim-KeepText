@@ -90,7 +90,7 @@ function! KeepText#LineOperator( type, ... )
     if a:0
 	silent! call repeat#set("\<Plug>(KeepTextLineVisual)", l:save_count)
     endif
-    silent! call visualrepeat#set("\<Plug>(KeepTextLineVisual)", l:save_count)
+    silent! call visualrepeat#set("\<Plug>(KeepTextLineRepeat)", l:save_count)
 endfunction
 function! KeepText#BufferOperator( type, ... )
     silent! call repeat#setreg("\<Plug>(KeepTextBufferVisual)", v:register)

@@ -38,6 +38,13 @@ vnoremap <silent> <Plug>(KeepTextLineVisual)
 vnoremap <silent> <Plug>(KeepTextBufferVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call KeepText#BufferOperator('visual', 1)<CR>
+" Special DWIM repeat for keeping text in line: If applied to full lines, keep
+" the previous motion on each line. For characterwise and blockwise selections,
+" keep the selection (same as repeating the visual mode mapping).
+xnoremap <expr> <SID>(CaptureVirtCol) visualrepeat#CaptureVirtCol()
+vnoremap <script> <silent> <Plug>(KeepTextLineRepeat)
+\ <SID>(CaptureVirtCol):<C-u>call setline('.', getline('.'))<Bar>
+\if visualmode() ==# 'V'<Bar>call visualrepeat#RepeatOnEachLine('normal! .')<Bar>else<Bar>call KeepText#LineOperator('visual', 1)<Bar>endif<CR>
 
 " A normal-mode repeat of the visual mapping is triggered by repeat.vim. It
 " establishes a new selection at the cursor position, of the same mode and size
