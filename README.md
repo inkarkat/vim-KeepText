@@ -25,6 +25,13 @@ USAGE
                             and any indent (including a potential comment prefix).
                             Register x contains the deleted text (and the indent,
                             too).
+                            When this is repeated (.) on a linewise selection,
+                            the text covered by the previous {motion}, starting
+                            from the current column, is kept in each line. For
+                            characterwise and blockwise selections, it works like
+                            a repeat of the following visual mode mapping,
+                            deleting any text in the selected lines except the
+                            selected text itself.
     {Visual}["x]<Leader>k   Delete any text in the selected line(s) except the
                             selected text itself, and any indent / comment prefix.
 
@@ -148,7 +155,7 @@ To uninstall, use the :RmVimball command.
 ### DEPENDENCIES
 
 - Requires Vim 7.0 or higher.
-- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.042 or
+- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.044 or
   higher.
 - repeat.vim ([vimscript #2136](http://www.vim.org/scripts/script.php?script_id=2136)) plugin (optional)
 - visualrepeat.vim ([vimscript #3848](http://www.vim.org/scripts/script.php?script_id=3848)) plugin (optional)
@@ -188,7 +195,7 @@ First published version.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2013-2020 Ingo Karkat -
+Copyright: (C) 2013-2022 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;

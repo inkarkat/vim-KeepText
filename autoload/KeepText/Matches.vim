@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2017-2019 Ingo Karkat
+" Copyright: (C) 2017-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -20,7 +20,7 @@ function! s:Command( Init, Adder, Joiner, startLnum, endLnum, isInvert, argument
 	call ingo#err#Set('Invalid /{pattern}/')
 	return 0
     endif
-    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# '^\%(' . ingo#cmdargs#substitute#GetFlags(l:indentFlag) . '\)$'
+    if empty(l:flags) && empty(l:count) && ! empty(l:replacement) && l:replacement =~# ingo#regexp#Anchored(ingo#cmdargs#substitute#GetFlags(l:indentFlag))
 	" Syntax differs from :substitute in that {string} is optional, but
 	" {flags} can still be specified.
 	let l:flags = l:replacement
