@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2020 Ingo Karkat
+" Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -18,7 +18,7 @@ set cpo&vim
 
 "- commands --------------------------------------------------------------------
 
-command! -bar -bang -range=% -nargs=+ KeepRange           call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
+command! -bar -bang -range=% -nargs=+ KeepRange           call setline(<line1>, getline(<line1>)) | if ! KeepText#Lines#Command(ingo#compat#command#Mods('<mods>'), <line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
 command!      -bang -range   -nargs=+ KeepMatch           call setline(<line1>, getline(<line1>)) | if ! KeepText#Matches#Command(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
 command!      -bang -range   -nargs=+ KeepMatchAndNewline call setline(<line1>, getline(<line1>)) | if ! KeepText#Matches#AndNewline(<line1>, <line2>, <bang>0, <q-args>) | echoerr ingo#err#Get() | endif
 
