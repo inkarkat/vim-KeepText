@@ -1,4 +1,7 @@
 autoload/KeepText.vim
 autoload/KeepText/InSelection.vim
+autoload/KeepText/Lines.vim
+autoload/KeepText/Matches.vim
+autoload/KeepText/Objects.vim
 plugin/KeepText.vim
 doc/KeepText.txt

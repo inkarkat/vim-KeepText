@@ -194,8 +194,8 @@ https://github.com/inkarkat/vim-KeepText/issues or email (address below).
 HISTORY
 ------------------------------------------------------------------------------
 
-##### GOAL
-First published version.
+##### 1.00    11-Feb-2025
+- First published version.
 
 ##### 0.01    01-Feb-2013
 - Started development.
