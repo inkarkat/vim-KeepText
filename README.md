@@ -6,10 +6,11 @@ DESCRIPTION
 ------------------------------------------------------------------------------
 
 It is easy to delete some text: By {motion}, visual selection, with
-:substitute. The opposite isn't so easy: You'd have to yank to a temporary
-register, delete the remainder, and paste; you cannot simply invert a
-selection; with :substitute, the match has to be captured and referenced in
-the replacement.
+:substitute. The opposite (keeping some text while removing the rest) isn't
+so easy: You have to yank to a temporary register, delete the remainder, and
+then paste again. You also cannot simply invert a selection; with
+:substitute, the match has to be captured and referenced in the replacement.
+
 This plugin adds commands for normal, visual, and command-line mode that let
 you easily specify text (by {motion}, selection, [range], or {pattern}), and
 then removes everything else in the command's scope (line, buffer, last
@@ -35,12 +36,12 @@ USAGE
     {Visual}["x]<Leader>k   Delete any text in the selected line(s) except the
                             selected text itself, and any indent / comment prefix.
 
-    ["x]<Leader>kkn         Within the current line / [N] / selected lines, delete
-    {Visual}["x]<Leader>kkn any text that does not match the last search pattern,
-                            and also keep any indent (including a potential
-                            comment prefix).
-    ["x]<Leader>kkN         Same as <Leader>kkn, but query whether to keep each
-    {Visual}["x]<Leader>kkN match.
+    ["x]<Leader>kkn         Within the current line / [count] / selected lines,
+    {Visual}["x]<Leader>kkn delete any text that does not match the last search
+                            pattern, and also keep any indent (including a
+                            potential comment prefix).
+    ["x]<Leader>kkN         Same as the above <Leader>kkn, but query whether to
+    {Visual}["x]<Leader>kkN keep each match.
 
     ["x]<Leader>kk/         Same as <Leader>kkN, but query a search pattern (and
     {Visual}["x]<Leader>kk/ also query whether to keep each match).
@@ -102,9 +103,9 @@ USAGE
                             line and as part of the deleted text.
                             This command is similar to
                                 :[range]global/^/KeepMatch ...
-                            but with correct register contents. Note: When
-                            executed on a single line, it's the same as
-                            :KeepMatch.
+                            but with correct register contents.
+                            Note: When executed on a single line, it's the same as
+                            a :KeepMatch command.
     :[range]KeepMatchAndNewline [{register}] /{pattern}/{string}/[flags]
                             Like above, but keep {string} (which can refer to the
                             match via &, \1, etc.)
@@ -125,6 +126,7 @@ He said: "Hello, world!" and then left.
 ```
 
 Instead of yi"0\_Dp or yi"Vp, we can now simply do &lt;Leader&gt;ki", or vi"&lt;Leader&gt;k.
+
 Instead of
 
     :substitute/.*"\(.*\)".*/\1/
@@ -171,13 +173,17 @@ If you want to use different mappings, map your keys to the
 
     nmap <Leader>k <Plug>(KeepTextLineOperator)
     xmap <Leader>k <Plug>(KeepTextLineVisual)
-    nmap <Leader>K <Plug>(KeepTextBufferOperator)
-    xmap <Leader>K <Plug>(KeepTextBufferVisual)
-    nmap <Leader>z <Plug>(KeepTextSelectionOperator)
-    nmap <Leader>/ <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
-    xmap <Leader>/ <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
-    nmap <Leader>? <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
-    xmap <Leader>? <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
+    nmap g<Leader>k <Plug>(KeepTextBufferOperator)
+    xmap g<Leader>k <Plug>(KeepTextBufferVisual)
+    nmap <Leader>zk <Plug>(KeepTextSelectionOperator)
+    nmap <Leader>kkn <Plug>(KeepTextAllMatchesLine)
+    xmap <Leader>kkn <Plug>(KeepTextAllMatchesVisual)
+    nmap <Leader>kkN <Plug>(KeepTextQueriedMatchesLine)
+    xmap <Leader>kkN <Plug>(KeepTextQueriedMatchesVisual)
+    nmap <Leader>kk/ <Plug>(KeepTextQueriedQueriedPatternMatchesLine)
+    xmap <Leader>kk/ <Plug>(KeepTextQueriedQueriedPatternMatchesVisual)
+    nmap <Leader>kk? <Plug>(KeepTextQueriedRecalledPatternMatchesLine)
+    xmap <Leader>kk? <Plug>(KeepTextQueriedRecalledPatternMatchesVisual)
 
 CONTRIBUTING
 ------------------------------------------------------------------------------
@@ -195,7 +201,7 @@ First published version.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2013-2022 Ingo Karkat -
+Copyright: (C) 2013-2025 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
