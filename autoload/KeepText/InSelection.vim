@@ -3,13 +3,10 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2019 Ingo Karkat
+" Copyright: (C) 2013-2025 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.001	14-Dec-2016	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -20,9 +17,18 @@ function! s:SetMarker( position, extraMotion, marker )
     call cursor(a:position[1:2])
     execute 'normal!' a:extraMotion . 'gR' . a:marker
 endfunction
+function! KeepText#InSelection#SaveSelection( keys ) abort
+    let [s:selectionStartPos, s:selectionEndPos, s:selectionStartVirtCol, s:selectionEndVirtCol, s:selectionMode] = [getpos("'<"), getpos("'>"), virtcol("'<"), virtcol("'>"), visualmode()]
+    return a:keys
+endfunction
 function! KeepText#InSelection#KeepText( type )
-    let [l:selectionStartPos, l:selectionEndPos, l:selectionStartVirtCol, l:selectionEndVirtCol, l:selectionMode] = [getpos("'<"), getpos("'>"), virtcol("'<"), virtcol("'>"), visualmode()]
     let [l:keepStartPos, l:keepEndPos, l:keepStartVirtCol, l:keepEndVirtCol] = [getpos("'["), getpos("']"), virtcol("'["), virtcol("']")]
+
+    if getpos("'<") != s:selectionStartPos || getpos("'>") != s:selectionEndPos || visualmode() !=# s:selectionMode
+	" A custom opfunc has clobbered the original user selection; restore it for the
+	" following "gv" to work.
+	call ingo#selection#Set(s:selectionStartPos, s:selectionEndPos, s:selectionMode)
+    endif
 
     let @" = ''
     silent! normal! gv""y
@@ -35,18 +41,17 @@ function! KeepText#InSelection#KeepText( type )
     if ! l:isInsideAtFront && ! l:isInsideAtBack
 	throw 'KeepText: Motion is outside selection'
     elseif ! l:isInsideAtFront
-	let l:keepStartPos = l:selectionStartPos
+	let l:keepStartPos = s:selectionStartPos
 	call ingo#msg#WarningMsg('Only partial overlap at front; extending selection')
     elseif ! l:isInsideAtBack
-	let l:keepEndPos = l:selectionEndPos
+	let l:keepEndPos = s:selectionEndPos
 	call ingo#msg#WarningMsg('Only partial overlap at back; extending selection')
     endif
 
     let l:unusedSingleWidthCharacter = s:FindUnusedSingleWidthCharacter(l:originalSelectedText)
 
     " Restore change marks; the yank has set those to the visual selection.
-    call setpos("'[", l:keepStartPos)
-    call setpos("']", l:keepEndPos)
+    call ingo#change#Set(l:keepStartPos, l:keepEndPos)
 
     " Note: Need to use an "inclusive" selection to make `] include the
     " last moved-over character.
@@ -67,12 +72,12 @@ function! KeepText#InSelection#KeepText( type )
     endtry
 
     " Replace the selection with the text to be kept.
-    call ingo#compat#setpos("'<", l:selectionStartPos)
-    call ingo#compat#setpos("'>", l:selectionEndPos)
+    call ingo#compat#setpos("'<", s:selectionStartPos)
+    call ingo#compat#setpos("'>", s:selectionEndPos)
 
     let l:selectionExtensionPre = ''
     let l:selectionExtensionPost = ''
-    if l:selectionMode ==# "\<C-v>"
+    if s:selectionMode ==# "\<C-v>"
 	" The end of the kept text can fall outside the block, if the last
 	" selected line is shorter than the end of the kept text. (The check for
 	" partial overlap at the beginning only considers the borders, not
@@ -84,8 +89,8 @@ function! KeepText#InSelection#KeepText( type )
 	" "greedy", i.e. first jump to the absolute border, and then try to
 	" reduce to the target column. If that exact place cannot be reached, we
 	" at least include everything we need (and more).
-	let l:selectionExtensionPost = (l:selectionEndVirtCol < l:keepEndVirtCol ?
-	\   (ingo#strdisplaywidth#HasMoreThan(getline(l:selectionEndPos[1]), l:keepEndVirtCol - 1) ?
+	let l:selectionExtensionPost = (s:selectionEndVirtCol < l:keepEndVirtCol ?
+	\   (ingo#strdisplaywidth#HasMoreThan(getline(s:selectionEndPos[1]), l:keepEndVirtCol - 1) ?
 	\       '$' . l:keepEndVirtCol . '|' :
 	\       '$'
 	\   ) :
@@ -93,7 +98,7 @@ function! KeepText#InSelection#KeepText( type )
 	\)
 
 	" Same for front.
-	if l:selectionStartVirtCol > l:keepStartVirtCol
+	if s:selectionStartVirtCol > l:keepStartVirtCol
 	    let l:selectionExtensionPre = '0' . l:keepStartVirtCol . '|'
 	endif
 
@@ -102,7 +107,7 @@ function! KeepText#InSelection#KeepText( type )
 	" line.
 	call setreg('"', '', 'ab')
     endif
-    execute 'normal! g`<' . l:selectionExtensionPre . l:selectionMode . 'g`>' . l:selectionExtensionPost . '""p'
+    execute 'normal! g`<' . l:selectionExtensionPre . s:selectionMode . 'g`>' . l:selectionExtensionPost . '""p'
 
     let l:isSingleCharacterMotion = (l:keepStartPos == l:keepEndPos)
     let l:replacement =escape(l:unusedSingleWidthCharacter, '\')
@@ -113,6 +118,7 @@ function! KeepText#InSelection#KeepText( type )
     \   ),
     \   '', ''
     \)
+    unlet! s:selectionStartPos s:selectionEndPos s:selectionStartVirtCol s:selectionEndVirtCol s:selectionMode
     return l:surroundingText
 endfunction
 

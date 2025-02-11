@@ -1,5 +1,7 @@
 " Test keeping inclusive selections at various locations in the buffer.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 set selection=inclusive
 call vimtest#StartTap()

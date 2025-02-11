@@ -5,27 +5,10 @@
 "   - repeat.vim (vimscript #2136) plugin (optional)
 "   - visualrepeat.vim (vimscript #3848) plugin (optional)
 "
-" Copyright: (C) 2013-2019 Ingo Karkat
+" Copyright: (C) 2013-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.005	04-Apr-2017	Handle no-op with visual linewise selection or
-"				motion that covers the entire line. We must not
-"				replace anything (as endLnum < startLnum), and
-"				instead put the original text back before the
-"				current line.
-"				ENH: Omit the "3 lines less / 3 lines more"
-"				messages and instead print our own message in
-"				case there was a significant change in lines.
-"   1.00.004	14-Dec-2016	Handle selection overlapping with indent: Do not
-"				add indent then.
-"	003	13-Dec-2016	ENH: Keep indent [+ comment prefix] in text.
-"				For blockwise selections, apply the indent to
-"				every line.
-"	002	02-Dec-2016	Complete implementation.
-"	001	18-Apr-2013	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -107,7 +90,7 @@ function! KeepText#LineOperator( type, ... )
     if a:0
 	silent! call repeat#set("\<Plug>(KeepTextLineVisual)", l:save_count)
     endif
-    silent! call visualrepeat#set("\<Plug>(KeepTextLineVisual)", l:save_count)
+    silent! call visualrepeat#set("\<Plug>(KeepTextLineRepeat)", l:save_count)
 endfunction
 function! KeepText#BufferOperator( type, ... )
     silent! call repeat#setreg("\<Plug>(KeepTextBufferVisual)", v:register)
@@ -132,22 +115,6 @@ function! KeepText#SelectionOperator( type, ... )
     catch /^KeepText:/
 	call ingo#msg#CustomExceptionMsg('KeepText')
     endtry
-endfunction
-
-function! KeepText#OperatorExpression( opfunc )
-    let &opfunc = a:opfunc
-
-    let l:keys = 'g@'
-
-    if ! &l:modifiable || &l:readonly
-	" Probe for "Cannot make changes" error and readonly warning via a no-op
-	" dummy modification.
-	" In the case of a nomodifiable buffer, Vim will abort the normal mode
-	" command chain, discard the g@, and thus not invoke the operatorfunc.
-	let l:keys = ":call setline('.', getline('.'))\<CR>" . l:keys
-    endif
-
-    return l:keys
 endfunction
 
 let &cpo = s:save_cpo

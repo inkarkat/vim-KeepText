@@ -1,5 +1,7 @@
 " Test keeping exclusive selections at various locations in a line.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 set selection=exclusive
 call vimtest#StartTap()

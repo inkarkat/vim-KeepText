@@ -1,7 +1,5 @@
 " Test repeat of keeping last search pattern text in selection.
 
-runtime plugin/visualrepeat.vim
-
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(3)

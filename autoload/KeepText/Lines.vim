@@ -3,21 +3,25 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2016-2019 Ingo Karkat
+" Copyright: (C) 2016-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.001	23-Dec-2016	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! KeepText#Lines#Command( startLnum, endLnum, isInvert, arguments )
+function! KeepText#Lines#Command( mods, startLnum, endLnum, isInvert, arguments )
     let [l:startLnum, l:endLnum] = [ingo#range#NetStart(a:startLnum), ingo#range#NetEnd(a:endLnum)]
 
     let [l:register, l:range] = ingo#cmdargs#register#ParsePrependedWritableRegister(a:arguments, '')
-    let [l:recordedLnums, l:startLnums, l:endLnums, l:didClobberSearchHistory] = ingo#range#lines#Get(l:startLnum, l:endLnum, l:range)
+    let l:isKeepPatterns = (index(split(a:mods), 'keeppatterns') != -1)
+    let [l:recordedLnums, l:startLnums, l:endLnums, l:didClobberSearchHistory] = ingo#range#lines#Get(l:startLnum, l:endLnum, l:range, (l:isKeepPatterns ? {'isKeepPatterns': 1} : {}))
+    " Ignore l:didClobberSearchHistory; we want this side effect (unless
+    " a:mods contains "keeppatterns").
+    if l:isKeepPatterns && l:didClobberSearchHistory
+	call histdel('search', -1)
+    endif
+
     if empty(l:recordedLnums)
 	call ingo#err#Set('No lines to keep')
 	return 0

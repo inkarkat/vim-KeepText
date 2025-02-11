@@ -1,5 +1,7 @@
 " Test keeping moved-over text inside inclusive selection.
 
+call vimtest#SkipAndQuitIf(! vimtest#features#SupportsNormalWithCount(), 'Need support for :normal with count')
+
 edit input.txt
 set selection=inclusive
 call vimtest#StartTap()
