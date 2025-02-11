@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2022 Ingo Karkat
+" Copyright: (C) 2013-2025 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -29,7 +29,7 @@ command!      -bang -range   -nargs=+ KeepMatchAndNewline call setline(<line1>, 
 " able to repeat the g@ on its own.
 nnoremap <expr> <Plug>(KeepTextLineOperator)      ingo#mapmaker#OpfuncExpression('KeepText#LineOperator')
 nnoremap <expr> <Plug>(KeepTextBufferOperator)    ingo#mapmaker#OpfuncExpression('KeepText#BufferOperator')
-nnoremap <expr> <Plug>(KeepTextSelectionOperator) ingo#mapmaker#OpfuncExpression('KeepText#SelectionOperator')
+nnoremap <expr> <Plug>(KeepTextSelectionOperator) KeepText#InSelection#SaveSelection(ingo#mapmaker#OpfuncExpression('KeepText#SelectionOperator'))
 
 " Repeat not defined in visual mode, but enabled through visualrepeat.vim.
 vnoremap <silent> <Plug>(KeepTextLineVisual)
