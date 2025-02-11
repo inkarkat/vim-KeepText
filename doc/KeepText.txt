@@ -205,7 +205,7 @@ https://github.com/inkarkat/vim-KeepText/issues or email (address below).
 ==============================================================================
 HISTORY							    *KeepText-history*
 
-GOAL
+1.00	11-Feb-2025
 First published version.
 
 0.01	01-Feb-2013
